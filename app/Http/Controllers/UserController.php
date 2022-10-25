@@ -92,7 +92,11 @@ class UserController extends Controller
         ]);
     }
 
-    public function deleteById(string $id)
+    /**
+     * @param string $id
+     * @return JsonResponse
+     */
+    public function deleteById(string $id): JsonResponse
     {
         User::where('id', $id)->delete();
 
