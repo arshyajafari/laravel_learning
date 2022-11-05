@@ -38,6 +38,7 @@ Route::group([
 });
 
 Route::get('/product', [ProductController::class, 'get']);
+Route::get('/product/{id}', [ProductController::class, 'getById']);
 
 Route::get('/category', [CategoryController::class, 'get']);
 

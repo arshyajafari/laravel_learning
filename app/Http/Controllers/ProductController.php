@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ProductResource;
 use App\Models\ProductModel;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,23 @@ class ProductController extends Controller
         }
 
         return response()->json(
-            $eloquent->get()
+            ProductResource::collection($eloquent->get())
+        );
+    }
+
+    public function getById (string $id)
+    {
+        $entity = ProductModel::with('categories')->where('id', $id)->first();
+
+        if (empty($entity))
+        {
+            return response()->json([
+                'message' => 'product not found'
+            ], 404);
+        }
+
+        return response()->json(
+            new ProductResource($entity)
         );
     }
 }
